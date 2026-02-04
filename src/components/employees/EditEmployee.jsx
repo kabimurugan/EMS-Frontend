@@ -27,7 +27,7 @@ const EditEmployee = () => {
         const fetchEmployee = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:5000/api/employees/${id}`,
+                    `https://ems-j292.onrender.com/api/employees/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ const EditEmployee = () => {
                     role: emp.role || "",
                     image: null, // ❌ never prefill file
                     imagePreview: emp.image
-                        ? `http://localhost:5000/uploads/${emp.image}`
+                        ? `https://ems-j292.onrender.com/uploads/${emp.image}`
                         : "",
                 });
             } catch (error) {
@@ -82,7 +82,7 @@ const EditEmployee = () => {
 
         try {
             await axios.put(
-                `http://localhost:5000/api/employees/${id}`,
+                `https://ems-j292.onrender.com/api/employees/${id}`,
                 formData,
                 {
                     headers: {

@@ -30,7 +30,7 @@ const EmployeeList = () => {
 
       const token = localStorage.getItem("token")
       try {
-        const response = await axios.get("http://localhost:5000/api/employees", {
+        const response = await axios.get("https://ems-j292.onrender.com/api/employees", {
           headers: {
             Authorization: `Bearer ${token}`
           }

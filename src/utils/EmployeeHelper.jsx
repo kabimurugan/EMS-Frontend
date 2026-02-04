@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom"
 export const fetchDepartments = async () => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.get('http://localhost:5000/api/department', {
+    const response = await axios.get('https://ems-j292.onrender.com/api/department', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -44,7 +44,7 @@ export const columns = [
     name: "Image",
     cell: (row) => (
       <img
-        src={`http://localhost:5000/uploads/${row.image}`}
+        src={`https://ems-j292.onrender.com/uploads/${row.image}`}
         alt="emp"
         className="w-10 h-10 rounded-full object-cover"
       />
@@ -64,7 +64,7 @@ export const EmployeeButtons = ({ _id, onEmployeeDelete }) => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/employees/${id}`, {
+      const response = await axios.delete(`https://ems-j292.onrender.com/api/employees/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

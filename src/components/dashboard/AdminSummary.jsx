@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaUsers, FaBuilding, FaMoneyBill, FaCogs, FaFileAlt, FaCheckCircle, FaHourglass, FaHourglassHalf, FaCircle, FaTimesCircle } from 'react-icons/fa'
-import SummaryCard from './summaryCard'
+import SummaryCard from './SummaryCard.jsx'
 
 const AdminSummary = () => {
     return (

@@ -35,7 +35,7 @@ const AddEmployee = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/employees/add",
+        "https://ems-j292.onrender.com/api/employees/add",
         data,
         {
           headers: {
