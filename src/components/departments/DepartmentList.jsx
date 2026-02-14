@@ -8,6 +8,7 @@ const DepartmentList = () => {
 
   const [departments, setDepartments] = useState([])
   const [Search, setSearch] = useState("")
+  const [loading, setLoading] = useState(false)
   const [filterdData, setFilteredData] = useState([])
 
   const onDepartmentDelete = (id) => {
@@ -31,6 +32,7 @@ const DepartmentList = () => {
 
   useEffect(() => {
     const fetchDepartments = async () => {
+      setLoading(true)
 
       const token = localStorage.getItem("token")
 
@@ -59,6 +61,9 @@ const DepartmentList = () => {
         if (!error.response.data.success) {
           console.log(error)
         }
+      }
+      finally{
+        setLoading(false)
       }
     }
 
@@ -96,7 +101,7 @@ const DepartmentList = () => {
       </div>
 
       <div>
-        <DataTable columns={columns} data={filterdData} pagination/>
+        <DataTable columns={columns} data={filterdData} pagination progressPending={loading}/>
       </div>
 
     </section>

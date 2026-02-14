@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { fetchDepartments } from "../../utils/EmployeeHelper";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddEmployee = () => {
   const [departments, setDepartments] = useState([])
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate()
 
   useEffect(() => {
+
     const fetchDep = async () => {
       const departments = await fetchDepartments()
       setDepartments(departments)
@@ -45,6 +48,7 @@ const AddEmployee = () => {
       );
 
       alert("Employee added successfully");
+      navigate('/admin-dashboard/employees')
     } catch (error) {
       console.log("AXIOS ERROR:", error);
       console.log("RESPONSE:", error.response);

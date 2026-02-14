@@ -1,79 +1,61 @@
-import React from 'react'
-import { FaUsers, FaBuilding, FaMoneyBill, FaCogs, FaFileAlt, FaCheckCircle, FaHourglass, FaHourglassHalf, FaCircle, FaTimesCircle } from 'react-icons/fa'
-import SummaryCard from './SummaryCard.jsx'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { FaUsers, FaBuilding } from "react-icons/fa";
+import SummaryCard from "./SummaryCard";
 
 const AdminSummary = () => {
-    return (
-        <>
-            <section className='m-4'>
-                <div>
-                    {/* Title */}
-                    <h1 className="text-2xl font-bold text-gray-800 mb-6">
-                        Dashboard Overview
-                    </h1>
+  const [totalEmployees, setTotalEmployees] = useState(0);
+  const [totalDepartments, setTotalDepartments] = useState(0);
 
-                    {/* Cards Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-                        <SummaryCard
-                            icon={<FaUsers />}
-                            text="Total Employees"
-                            number={120}
-                            color="bg-violet-600"
-                        />
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
 
-                        <SummaryCard
-                            icon={<FaBuilding />}
-                            text="Departments"
-                            number={8}
-                            color="bg-blue-600"
-                        />
+        // Fetch employees
+        const empRes = await axios.get(
+          "https://ems-j292.onrender.com/api/employees",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
-                        {/* <SummaryCard
-                            icon={<FaMoneyBill />}
-                            text="Monthly Salary"
-                            number="₹2.5L"
-                            color="bg-orange-600"
-                        /> */}
+        if (empRes.data.success) {
+          setTotalEmployees(empRes.data.fetchEmployee.length);
+        }
 
-                    </div>
-                </div>
+        // Fetch departments
+        const depRes = await axios.get(
+          "https://ems-j292.onrender.com/api/department",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
-                {/* <div>
-                    <h1 className='mt-14 mb-10 text-2xl font-bold text-center'>Leave Details</h1>
+        if (depRes.data.success) {
+          setTotalDepartments(depRes.data.departments.length);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-                    // Cards Grid
+    fetchData();
+  }, []);
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-                        <SummaryCard
-                            icon={<FaFileAlt />}
-                            text="Leave Applied"
-                            number={12}
-                            color="bg-teal-600"
-                        />
-                        <SummaryCard
-                            icon={<FaCheckCircle />}
-                            text="Leave Approved"
-                            number={7}
-                            color="bg-green-600"
-                        />
-                        <SummaryCard
-                            icon={<FaHourglassHalf />}
-                            text="Leave Pending"
-                            number={2}
-                            color="bg-yellow-600"
-                        />
-                        <SummaryCard
-                            icon={<FaTimesCircle />}
-                            text="Leave Rejected"
-                            number={3}
-                            color="bg-red-600"
-                        />
-                    </div>
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+      <SummaryCard
+        icon={<FaUsers />}
+        text="Total Employees"
+        number={totalEmployees}
+        color="bg-violet-600"
+      />
 
-                </div> */}
-            </section>
-        </>
-    )
-}
+      <SummaryCard
+        icon={<FaBuilding />}
+        text="Departments"
+        number={totalDepartments}
+        color="bg-blue-600"
+      />
+    </div>
+  );
+};
 
-export default AdminSummary
+export default AdminSummary;
