@@ -33,8 +33,11 @@ const AddEmployee = () => {
     const data = new FormData();
 
     Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
+      if (value !== undefined && value !== null) {
+        data.append(key, value);
+      }
     });
+
 
     try {
       await axios.post(

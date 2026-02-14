@@ -41,15 +41,16 @@ export const columns = [
     selector: (row) => row.department,
   },
   {
-    name: "Image",
-    cell: (row) => (
-      <img
-        src={`https://ems-j292.onrender.com/uploads/${row.image}`}
-        alt="emp"
-        className="w-10 h-10 rounded-full object-cover"
-      />
-    )
-  },
+  name: "Image",
+  cell: (row) => (
+    <img
+      src={row.image}
+      alt="emp"
+      className="w-10 h-10 rounded-full object-cover"
+    />
+  )
+}
+,
   {
     name: "Action",
     selector: (row) => row.action
